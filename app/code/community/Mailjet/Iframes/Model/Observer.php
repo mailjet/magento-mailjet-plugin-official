@@ -121,21 +121,33 @@ class Mailjet_Iframes_Model_Observer
         }
         return true;        
     }
+    
+    
+    
     public function checkValidApiKey(Varien_Event_Observer $observer)
     {         
-        $data = $observer->getEvent()->getData('data_object')->getData();
-        if(isset($data['field']) && $data['field'] == 'login') {
-            $mailjetApi = new Mailjet_Iframes_Helper_ApiWrapper(
-                Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_LOGIN), 
-                Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_PASSWORD)
-            );
-            $response = $mailjetApi->sender(array('limit' => 1))->getResponse();
-            // Check if the list exists
-            if(!isset($response->Data)) {
-                Mage::getSingleton('adminhtml/session')->addNotice("Wrong API login and/or password!");
-                Mage::app()->getResponse()->setRedirect(Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/mailjetiframes_options'));
+        try {
+			
+            $data = $observer->getEvent()->getData('data_object')->getData();
+            if(isset($data['field']) && $data['field'] == 'login') {
+                $mailjetApi = new Mailjet_Iframes_Helper_ApiWrapper(
+                    Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_LOGIN), 
+                    Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_PASSWORD)
+                );
+                $response = $mailjetApi->sender(array('limit' => 1))->getResponse();
+                // Check if the list exists
+                if(!isset($response->Data)) {
+                    Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('iframes')->__("Please verify that you have entered your API and secret key correctly.<br />"
+                        . "If this is the case and you have still this error message, "
+                        . "please go to Account API keys (<a href=\"https://www.mailjet.com/account/api_keys\">https://www.mailjet.com/account/api_keys</a>) to regenerate a new Secret Key for the plug-in."));
+                    Mage::app()->getResponse()->setRedirect(Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/mailjetiframes_options'));
+                }
             }
-        }
+
+		} catch (Exception $e) {
+			//return false;
+		}
+
         return true;        
     }
     

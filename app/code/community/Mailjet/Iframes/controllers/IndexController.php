@@ -132,6 +132,8 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
             $this->_apikey, $this->_secretKey
         );
     }
+    
+    
     protected function checkValidApiCredentials()
     {
         $mailjetApi = new Mailjet_Iframes_Helper_ApiWrapper(
@@ -140,8 +142,9 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
         );
         $response = $mailjetApi->sender(array('limit' => 1))->getResponse();
         if(!isset($response->Data)) {
-            Mage::getSingleton('adminhtml/session')->addNotice("Wrong API login and/or password!");
-            Mage::getSingleton('core/session')->addNotice("Wrong API login and/or password!");
+            Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('adminhtml')->__("Please verify that you have entered your API and secret key correctly.<br />"
+                . "If this is the case and you have still this error message, "
+                . "please go to Account API keys (<a href=\"https://www.mailjet.com/account/api_keys\">https://www.mailjet.com/account/api_keys</a>) to regenerate a new Secret Key for the plug-in."));
             Mage::app()->getResponse()->setRedirect(Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/mailjetiframes_options'));
             return false;
         }

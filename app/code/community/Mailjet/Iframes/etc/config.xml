@@ -37,7 +37,12 @@
         </models>
         <events>
             <core_config_data_save_commit_after>
-                <observers>
+                <observers>                    
+                    <check_valid_api_key>
+                        <type>singleton</type>
+                        <class>Mailjet_Iframes_Model_Observer</class>
+                        <method>checkValidApiKey</method>
+                    </check_valid_api_key>
                     <test_mail>
                         <type>singleton</type>
                         <class>Mailjet_Iframes_Model_Observer</class>
@@ -48,11 +53,6 @@
                         <class>Mailjet_Iframes_Model_Observer</class>
                         <method>initialSync</method>
                     </initial_sync>
-                    <check_valid_api_key>
-                        <type>singleton</type>
-                        <class>Mailjet_Iframes_Model_Observer</class>
-                        <method>checkValidApiKey</method>
-                    </check_valid_api_key>
                 </observers>
             </core_config_data_save_commit_after>
             <customer_register_success>

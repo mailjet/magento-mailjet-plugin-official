@@ -27,7 +27,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
 
-                        <enabled translate="label">
+                        <enabled translate="label,comment">
                             <label>Enabled</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>100</sort_order>
@@ -38,7 +38,7 @@
                             <comment>If enabled, overrides standart SMTP settings</comment>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                         </enabled>
-                        <test translate="label">
+                        <test translate="label,comment">
                             <label>Send test mail now</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>200</sort_order>
@@ -60,14 +60,14 @@
                     </fields>
                 </general>
                 
-                <smtp translate="label">
+                <smtp translate="label,comment">
                     <label>API settings</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                    <comment><![CDATA[<b>Please enter your Mailjet login information below (<a href="https://app.mailjet.com/account/api_keys" target="_blank">Mailjet API keys</a>)</b> or <strong><a href="https://www.mailjet.com/signup?p=magento-3.0" target="_blank">sign up</a> and enhance your client base with the power of Mailjet today!</strong>]]></comment>
+                    <comment><![CDATA[<b>Please enter your Mailjet login information below (<a style="color:#FF6600;" href="https://app.mailjet.com/account/api_keys" target="_blank">Mailjet API keys</a>)</b> <br />or<br /><strong><a style="color:#FF6600;" href="https://www.mailjet.com/signup?p=magento-3.0" target="_blank">Create your Mailjet account</a>  if you don't have any.</strong>]]></comment>
                     <fields>
                         <login translate="label">
                             <label>API Key</label>
