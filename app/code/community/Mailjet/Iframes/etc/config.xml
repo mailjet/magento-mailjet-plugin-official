@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Mailjet_Iframes>
-            <version>3.0</version>
+            <version>1.0.0</version>
         </Mailjet_Iframes>
     </modules>
     <global>
@@ -19,7 +19,16 @@
         <models>
             <iframes>
                 <class>Mailjet_Iframes_Model</class>
+                <resourceModel>mailjet_iframes_resource</resourceModel>
             </iframes>
+            <mailjet_iframes_resource>
+                <class>Mailjet_Iframes_Model_Resource</class>
+                <entities>
+                    <iframes_test>
+                        <table>iframes_test</table>
+                    </iframes_test>
+                </entities>
+            </mailjet_iframes_resource>
             <core>
                 <rewrite>
                     <email_template>Mailjet_Iframes_Model_Email_Template</email_template>
@@ -34,13 +43,60 @@
                         <class>Mailjet_Iframes_Model_Observer</class>
                         <method>sendTestMail</method>
                     </test_mail>
+                    <initial_sync>
+                        <type>singleton</type>
+                        <class>Mailjet_Iframes_Model_Observer</class>
+                        <method>initialSync</method>
+                    </initial_sync>
+                    <check_valid_api_key>
+                        <type>singleton</type>
+                        <class>Mailjet_Iframes_Model_Observer</class>
+                        <method>checkValidApiKey</method>
+                    </check_valid_api_key>
                 </observers>
             </core_config_data_save_commit_after>
+            <customer_register_success>
+                <observers>
+                    <customer_register>
+                        <type>singleton</type>
+                        <class>Mailjet_Iframes_Model_Observer</class>
+                        <method>customerRegisterSync</method>
+                    </customer_register>
+                </observers>
+            </customer_register_success>
+            <adminhtml_customer_save_after>
+                <observers>
+                    <adminhtml_customer_save>
+                        <type>singleton</type>
+                        <class>Mailjet_Iframes_Model_Observer</class>
+                        <method>customerSaveSync</method>
+                    </adminhtml_customer_save>
+                </observers>
+            </adminhtml_customer_save_after>
+            <customer_save_commit_after>
+                <observers>
+                    <customer_save>
+                        <type>singleton</type>
+                        <class>Mailjet_Iframes_Model_Observer</class>
+                        <method>customerSaveSync</method>
+                    </customer_save>
+                </observers>
+            </customer_save_commit_after> 
+            <customer_delete_commit_after>
+                <observers>
+                    <customer_delete>
+                        <type>singleton</type>
+                        <class>Mailjet_Iframes_Model_Observer</class>
+                        <method>customerDeleteSync</method>
+                    </customer_delete>
+                </observers>
+            </customer_delete_commit_after>
         </events>
         <resources>
             <iframes_setup>
                 <setup>
                     <module>Mailjet_Iframes</module>
+                    <class>Mailjet_Iframes_Model_Resource_Setup</class>
                 </setup>
                 <connection>
                     <use>core_setup</use>

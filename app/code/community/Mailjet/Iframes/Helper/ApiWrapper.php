@@ -780,5 +780,32 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
         if ($this->_debugEcho)
             echo $this->_debugErrorHtml;
     }
+ 
+    
+    
+    
+    
+    public function batchJobContacts($listID, $dataID, $status = 'addforce')
+    {
+    	$paramsProfile = array(
+            'method' => 'JSON',  // JSON
+            'JobType' => 'Contact list import csv',
+            'DataID' => $dataID,
+            'Status' => 'Upload',
+            'RefId' => $listID,
+            'Method' => $status, // = 'addforce,remove,addnoforse'
+            'APIKeyALT'	=> $this->getAPIKey()
+    	);
+        
+    	$this->resetRequest();
+    	$this->batchjob($paramsProfile);
+    	$responesProfile = $this->getResponse();
+
+        if ($responesProfile->Count > 0) {
+    		return $responesProfile->Data;
+    	}
+    	 
+    	return false;
+    }
     
 }
