@@ -67,7 +67,7 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                    <comment><![CDATA[<b>Please enter your Mailjet login information below (<a style="color:#FF6600;" href="https://app.mailjet.com/account/api_keys" target="_blank">Mailjet API keys</a>)</b> <br />or<br /><strong><a style="color:#FF6600;" href="https://www.mailjet.com/signup?p=magento-3.0" target="_blank">Create your Mailjet account</a>  if you don't have any.</strong>]]></comment>
+                    <comment><![CDATA[<b>Please enter your Mailjet login information below (<a style='color:#FF6600;' href='https://app.mailjet.com/account/api_keys' target='_blank'>Mailjet API keys</a>)</b> <br />or<br /><strong><a style='color:#FF6600;' href='https://www.mailjet.com/signup?p=magento-3.0' target='_blank'>Create your Mailjet account</a> if you don't have any.</strong>]]></comment>
                     <fields>
                         <login translate="label">
                             <label>API Key</label>

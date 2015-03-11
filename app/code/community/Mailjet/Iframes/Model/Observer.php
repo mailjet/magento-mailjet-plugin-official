@@ -95,7 +95,7 @@ class Mailjet_Iframes_Model_Observer
 
                 $sender->sendMail($Mail, self::$fields);
             } else {
-                throw new Exception(sPrintF('Please contact Mailjet support to sort this out.<br /><br />%d - %s', $errno, $errstr));
+                throw new Exception(sPrintF(Mage::helper('iframes')->__('Please contact Mailjet support to sort this out.').'<br /><br />%d - %s', $errno, $errstr));
             }
         }
     }
@@ -137,9 +137,7 @@ class Mailjet_Iframes_Model_Observer
                 $response = $mailjetApi->sender(array('limit' => 1))->getResponse();
                 // Check if the list exists
                 if(!isset($response->Data)) {
-                    Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('iframes')->__("Please verify that you have entered your API and secret key correctly.<br />"
-                        . "If this is the case and you have still this error message, "
-                        . "please go to Account API keys (<a href=\"https://www.mailjet.com/account/api_keys\">https://www.mailjet.com/account/api_keys</a>) to regenerate a new Secret Key for the plug-in."));
+                    Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('iframes')->__("Please verify that you have entered your API and secret key correctly. <br />If this is the case and you have still this error message, please go to Account API keys (<a href='https://www.mailjet.com/account/api_keys'>https://www.mailjet.com/account/api_keys</a>) to regenerate a new Secret Key for the plug-in."));
                     Mage::app()->getResponse()->setRedirect(Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/mailjetiframes_options'));
                 }
             }

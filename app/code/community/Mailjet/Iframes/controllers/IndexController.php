@@ -69,22 +69,13 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
      */
     public function eventsAction()
     {
-        $params = $this->getRequest()->getParams();
-		$post = $_REQUEST;
+        try {
+            
         $postinput = trim(file_get_contents('php://input'));
-        Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$postinput0'."\r\n".$postinput['event']);
-        Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$postinput01'."\r\n".json_decode($postinput));
-        Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$postinput02'."\r\n".json_encode($params));
-        Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$postinput1'."\r\n".print_r($postinput, 1));
-        Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$postinput2'."\r\n".json_encode(print_r($postinput, 1)));
-        Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$post3'."\r\n".json_encode($postinput));
-        Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$post4'."\r\n".print_r($post, 1));
-        Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$post5'."\r\n".json_decode(print_r($post, 1)));
-        Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$post6'."\r\n".json_decode($post));
-        Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('eventsAction'."\r\n".print_r($params, 1));
-        Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$params[event]'."\r\n".$params['event']);
-		Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$params[event]2'."\r\n".json_decode($params));
-		Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$params[event]3'."\r\n".json_decode($params['event']));
+            $params = json_decode($postInput, 1);
+
+            //Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$params'."\r\n".print_r($params, 1));
+
         switch ($params['event']) {
             case 'open':
                 /* => do action */
@@ -106,10 +97,10 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
                 break;
             case 'unsub':
                 /* => do action */
-//                if(isset($params['email']) && !empty($params['email'])) {
-//                    $syncManager = new Mailjet_Iframes_Helper_SyncManager();
-//                    $syncManager->usubscribeByEmail($params['email']);
-//                }
+                    if(isset($params['email']) && !empty($params['email'])) {
+                        $syncManager = new Mailjet_Iframes_Helper_SyncManager();
+                        $syncManager->usubscribeByEmail($params['email']);
+                    }
                 break;
             case 'typofix':
                 /* => do action */
@@ -120,6 +111,9 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
                 /* => do action */
                 break;
         }
+        } catch (Exception $e) {
+			//throw new Exception(Mage::helper('adminhtml')->__('Wrong event type'));
+		}
     }
     
     /**
@@ -142,9 +136,7 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
         );
         $response = $mailjetApi->sender(array('limit' => 1))->getResponse();
         if(!isset($response->Data)) {
-            Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('adminhtml')->__("Please verify that you have entered your API and secret key correctly.<br />"
-                . "If this is the case and you have still this error message, "
-                . "please go to Account API keys (<a href=\"https://www.mailjet.com/account/api_keys\">https://www.mailjet.com/account/api_keys</a>) to regenerate a new Secret Key for the plug-in."));
+            Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('adminhtml')->__("Please verify that you have entered your API and secret key correctly. If this is the case and you have still this error message, please go to Account API keys (<a href='https://www.mailjet.com/account/api_keys'>https://www.mailjet.com/account/api_keys</a>) to regenerate a new Secret Key for the plug-in."));
             Mage::app()->getResponse()->setRedirect(Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/mailjetiframes_options'));
             return false;
         }

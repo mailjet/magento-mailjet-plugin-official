@@ -114,6 +114,17 @@
             </iframes_read>
         </resources>
     </global>   
+    <frontend>
+        <translate>
+            <modules>
+                <iframes>
+                    <files>
+                        <default>Mailjet_Iframes.csv</default>
+                    </files>
+                </iframes>
+            </modules>
+        </translate>
+    </frontend>
     <admin>
         <routers>
             <iframes>
@@ -152,6 +163,15 @@
                 </admin>
             </resources>
         </acl>
+        <translate>
+            <modules>
+                <iframes>
+                    <files>
+                        <default>Mailjet_Iframes.csv</default>
+                    </files>
+                </iframes>
+            </modules>
+        </translate>
     </adminhtml>
     <default>
         <mailjetiframes_options>

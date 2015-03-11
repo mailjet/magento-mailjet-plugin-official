@@ -25,7 +25,7 @@ class Mailjet_Iframes_Helper_SyncManager extends Mage_Core_Helper_Abstract
         if (is_array($filterEmails) && !empty($filterEmails)) { 
             $pageSize = count($filterEmails);
         } else {
-            $pageSize = 1000;
+            $pageSize = Mailjet_Iframes_Helper_Synchronization::$_limitPerRequest;
         }
         $customerCollectionCount = $this->_getAllCustomersCount($filterEmails);
         $pages = ceil($customerCollectionCount/$pageSize);    
@@ -83,7 +83,7 @@ class Mailjet_Iframes_Helper_SyncManager extends Mage_Core_Helper_Abstract
         if(is_array($contacts) && !empty($contacts) && (int) $existingListId > 0) {
             $success = $sync->removeContactsFromMailjetList($existingListId, $contacts);
             if ($success !== true) {
-                throw new Exception('Remove Contacts From Mailjet List failed');
+                throw new Exception(Mage::helper('iframes')->__('Remove contacts from Mailjet list failed'));
             }
         }   
          
@@ -105,7 +105,7 @@ class Mailjet_Iframes_Helper_SyncManager extends Mage_Core_Helper_Abstract
         $conn = $coreResource->getConnection('core_read');
         /** @var $select Varien_Db_Select */
         $select = $conn->select()
-            ->from(array('customer_entity'), 
+            ->from(array(Mage::getSingleton('core/resource')->getTableName('customer_entity')), 
                 new Zend_Db_Expr('COUNT(*)'));
         if (is_array($filterEmails) && !empty($filterEmails)) { 
             $select->where('email IN (?)', implode("','", $filterEmails));

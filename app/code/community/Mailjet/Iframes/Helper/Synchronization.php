@@ -7,7 +7,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
 	 */
 	private $_mailjetContacts = array();
     
-    private $_limitPerRequest = 10000;
+    public static $_limitPerRequest = 20000;
     
     const FILTER_ID = '1';
 
@@ -137,13 +137,13 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
             if (!empty($contactsToAdd)) {
                 $success = $this->addContactsToMailjetList(self::$_existingListId, $contactsToAdd);
                 if ($success !== true) {
-                    throw new Exception('Add Contacts To Mailjet List failed');
+                    throw new Exception(Mage::helper('iframes')->__('Add contacts to Mailjet list failed'));
                 }
             }
 
-            $response = 'OK';
+            $response = Mage::helper('iframes')->__('OK');
         } catch (Exception $e) {
-            $response = 'Try again later';
+            $response = Mage::helper('iframes')->__('Try again later');
         }
 
 
@@ -213,14 +213,14 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
 			if (!empty($contactsToAdd)) {
                 $success = $this->addContactsToMailjetList($existingListId, $contactsToAdd, true);
 				if ($success !== true) {
-                    throw new Exception('Add Contacts To Mailjet List failed');
+                    throw new Exception(Mage::helper('iframes')->__('Add contacts to Mailjet list failed'));
                 }
 			}
 
 			if (!empty($contactsToRemove)) {
                 $success = $this->removeContactsFromMailjetList($existingListId, $contactsToRemove);
 				if ($success !== true) {
-                    throw new Exception('Remove Contacts From Mailjet List failed');
+                    throw new Exception(Mage::helper('iframes')->__('Remove contacts from Mailjet list failed'));
                 }
 			}
 
@@ -264,7 +264,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
             $res = json_decode($this->_getApiOverlay()->getResponse());    	
 
             if (!isset($res->ID)) {
-                throw new Exception('Create contacts problem');
+                throw new Exception(Mage::helper('iframes')->__('Create contacts problem'));
             }
           
             if ($updateExistingContacts) {
@@ -274,7 +274,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
             }
 
             if ($batchJobResponse == false) {
-                throw new Exception('Batchjob problem');
+                throw new Exception(Mage::helper('iframes')->__('Batchjob problem'));
             }
         }
         
@@ -293,13 +293,13 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
             $res = json_decode($this->_getApiOverlay()->getResponse());    	
 
             if (!isset($res->ID)) {
-                throw new Exception('Create contacts problem');
+                throw new Exception(Mage::helper('iframes')->__('Create contacts problem'));
             }
 
             $batchJobResponse = $this->_getApiOverlay()->batchJobContacts($listId, $res->ID, 'remove');
 
             if ($batchJobResponse == false) {
-                throw new Exception('Batchjob problem');
+                throw new Exception(Mage::helper('iframes')->__('Batchjob problem'));
             }
         }
         
@@ -381,7 +381,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
 			'style'				=> 'full',
 			'CountRecords'		=> 1,
 			'offset'			=> $offset,
-			'limit'				=> $this->_limitPerRequest,
+			'limit'				=> self::$_limitPerRequest,
 		);
 
 		$this->_getApiOverlay()->resetRequest();
@@ -400,7 +400,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
 
 		if ($offset + $current < $totalCount) {
             $offset = ($offset + $current);
-            $this->_gatherCurrentContacts($mailjetListId, $offset + $this->_limitPerRequest);
+            $this->_gatherCurrentContacts($mailjetListId, $offset + self::$_limitPerRequest);
         }
 	}
     

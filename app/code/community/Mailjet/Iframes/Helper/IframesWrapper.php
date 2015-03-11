@@ -146,13 +146,13 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
     {
         if (!is_numeric($seconds)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "Token expiration should be a valid number."
+                Mage::helper('iframes')->__("Token expiration should be a valid number.")
             );
         }
         
         if ($seconds <= 0) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "Token expiration should be greater than 0"
+                Mage::helper('iframes')->__("Token expiration should be greater than 0")
             );
         }
         
@@ -187,7 +187,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
     {
         if (!in_array($locale, $this->locales)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "{$locale} is not supported."
+                "{$locale}" . Mage::helper('iframes')->__('is not supported.')
             );
         }
         
@@ -205,7 +205,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
         foreach ($access as $value) {
             if (!in_array($value, $this->tokenAccessAvailable)) {
                 throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                    "{$value} is not a valid token access."
+                    "{$value}" . Mage::helper('iframes')->__('is not a valid token access.')
                 );
             }
         }
@@ -223,7 +223,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
     {
         if (!$this->isAllowedOnOffParameter($flag)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "Segmentation requires a valid on/off parameter."
+                Mage::helper('iframes')->__("Segmentation requires a valid on/off parameter.")
             );
         }
         
@@ -241,7 +241,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
     {
         if (!$this->isAllowedOnOffParameter($flag)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "Personalization requires a valid on/off parameter."
+                Mage::helper('iframes')->__("Personalization requires a valid on/off parameter.")
             );
         }
         
@@ -259,7 +259,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
     {
         if (!$this->isAllowedOnOffParameter($flag)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "Campaign comparison requires a valid on/off parameter."
+                Mage::helper('iframes')->__("Campaign comparison requires a valid on/off parameter.")
             );
         }
         
@@ -277,7 +277,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
     {
         if (!$this->isAllowedOnOffParameter($flag)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "Documentation properties requires a valid on/off parameter."
+                Mage::helper('iframes')->__("Documentation properties requires a valid on/off parameter.")
             );
         }
         
@@ -295,7 +295,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
     {
         if (!$this->isAllowedOnOffParameter($flag)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "New contact list creation requires a valid on/off parameter."
+                Mage::helper('iframes')->__("New contact list creation requires a valid on/off parameter.")
             );
         }
         
@@ -312,7 +312,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
     {
         if (!$this->isAllowedOnOffParameter($flag)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "Menu requires a valid on/off parameter."
+                Mage::helper('iframes')->__("Menu requires a valid on/off parameter.")
             );
         }
         
@@ -330,7 +330,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
     {
         if (!$this->isAllowedOnOffParameter($flag)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "Mailjet logos require a valid on/off parameter."
+                Mage::helper('iframes')->__("Mailjet logos require a valid on/off parameter.")
             );
         }
         
@@ -348,7 +348,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
     {
         if (!in_array($page, $this->allowedPages)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "{$page} is uknown."
+                "{$page}" . Mage::helper('iframes')->__('is uknown.')
             );
         }
         
@@ -435,19 +435,19 @@ HTML;
         
         if (!$response) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "The Mailjet API does not respond."
+                Mage::helper('iframes')->__("The Mailjet API does not respond.")
             );
         }
         
         if ($response->Count <= 0) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "The Mailjet API object not found."
+                Mage::helper('iframes')->__("The Mailjet API object not found.")
             );
         }
         
         if (!isset($response->Data[0]->Token)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(
-                "The Mailjet API returned invalid response."
+                Mage::helper('iframes')->__("The Mailjet API returned invalid response.")
             );
         }
         
