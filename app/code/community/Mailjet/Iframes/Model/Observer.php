@@ -113,10 +113,12 @@ class Mailjet_Iframes_Model_Observer
         $data = $observer->getEvent()->getData('data_object')->getData();
      
         if(isset($data['field']) && $data['field'] == 'login') {
+            if(!Mage::registry('failedApiKeyValidation')) {
             $credentialsOk = Mailjet_Iframes_Helper_Config::checkApiCredentials();
             if($credentialsOk) {
                 $syncManager = new Mailjet_Iframes_Helper_SyncManager();
                 $syncManager->synchronize();
+                }
             }
         }
         return true;        
@@ -137,15 +139,19 @@ class Mailjet_Iframes_Model_Observer
                 $response = $mailjetApi->sender(array('limit' => 1))->getResponse();
                 // Check if the list exists
                 if(!isset($response->Data)) {
+                    Mage::register('failedApiKeyValidation', true);
                     Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('iframes')->__("Please verify that you have entered your API and secret key correctly. <br />If this is the case and you have still this error message, please go to Account API keys (<a href='https://www.mailjet.com/account/api_keys'>https://www.mailjet.com/account/api_keys</a>) to regenerate a new Secret Key for the plug-in."));
                     Mage::app()->getResponse()->setRedirect(Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/mailjetiframes_options'));
+                    return false;
                 }
             }
 
 		} catch (Exception $e) {
-			//return false;
+            Mage::register('failedApiKeyValidation', true);
+			return false;
 		}
 
+        Mage::unregister('failedApiKeyValidation');
         return true;        
     }
     

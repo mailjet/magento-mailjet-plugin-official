@@ -7,7 +7,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
 	 */
 	private $_mailjetContacts = array();
     
-    public static $_limitPerRequest = 20000;
+    public static $_limitPerRequest = 10000;
     
     const FILTER_ID = '1';
 
@@ -163,11 +163,12 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
         }
         /*
          * Gather existing Contacts in a given Mailjet list
+         * We pass this step if we already have any $_mailjetContacts array - empty or not
          */
-        $this->_gatherCurrentContacts($existingListId);
         
         if (!isset($this->_mailjetContacts) || !is_array($this->_mailjetContacts)) {
             $this->_mailjetContacts = array();            
+            $this->_gatherCurrentContacts($existingListId);
         }
 		$magentoContacts = array();
         $contactsToCsv = array();
@@ -381,7 +382,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
 			'style'				=> 'full',
 			'CountRecords'		=> 1,
 			'offset'			=> $offset,
-			'limit'				=> self::$_limitPerRequest,
+			'limit'				=> 100000,
 		);
 
 		$this->_getApiOverlay()->resetRequest();

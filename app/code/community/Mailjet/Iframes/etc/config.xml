@@ -15,6 +15,11 @@
             <iframes>
                 <class>Mailjet_Iframes_Block</class>
             </iframes>
+            <adminhtml>
+                <rewrite>
+                   <system_config_edit>Mailjet_Iframes_Block_Adminhtml_System_Config_Edit</system_config_edit>
+                </rewrite>
+            </adminhtml>
         </blocks>
         <models>
             <iframes>

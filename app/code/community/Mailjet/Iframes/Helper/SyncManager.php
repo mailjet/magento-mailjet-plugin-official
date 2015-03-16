@@ -29,6 +29,11 @@ class Mailjet_Iframes_Helper_SyncManager extends Mage_Core_Helper_Abstract
         }
         $customerCollectionCount = $this->_getAllCustomersCount($filterEmails);
         $pages = ceil($customerCollectionCount/$pageSize);    
+        Mage::register('startSynchronization', true);
+        $existingMailjetList = $sync->getExistingMailjetListId();
+        if (intval($existingMailjetList) > 0) {
+            $sync->deleteList($existingMailjetList);
+        }
         for ($i = 0; $i <= $pages; $i++) {
             $subscribersData = array();
         $customerCollection = Mage::getModel('customer/customer')->getCollection()
@@ -68,6 +73,7 @@ class Mailjet_Iframes_Helper_SyncManager extends Mage_Core_Helper_Abstract
             $sync->synchronize($subscribersData, $updateOnlyGiven);
         }
         }
+        Mage::unregister('startSynchronization');
 		return true;
 	}
     
@@ -94,8 +100,9 @@ class Mailjet_Iframes_Helper_SyncManager extends Mage_Core_Helper_Abstract
         $subscriber = Mage::getModel('newsletter/subscriber')->loadByEmail($email);
         if($subscriber->getStatus() != Mage_Newsletter_Model_Subscriber::STATUS_UNSUBSCRIBED) {
             $subscriber->unsubscribe($email);
+            return $subscriber;
         }
-        return $subscriber;
+        return false;
     }
     private function _getAllCustomersCount($filterEmails = array())
 	{
