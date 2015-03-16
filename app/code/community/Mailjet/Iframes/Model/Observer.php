@@ -128,14 +128,19 @@ class Mailjet_Iframes_Model_Observer
     
     public function checkValidApiKey(Varien_Event_Observer $observer)
     {         
-        try {
 			
             $data = $observer->getEvent()->getData('data_object')->getData();
             if(isset($data['field']) && $data['field'] == 'login') {
-                $mailjetApi = new Mailjet_Iframes_Helper_ApiWrapper(
-                    Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_LOGIN), 
-                    Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_PASSWORD)
-                );
+            try {
+                $login = isset($data['fieldset_data']['login']) ? $data['fieldset_data']['login'] : '';
+                $password = isset($data['fieldset_data']['password']) ? $data['fieldset_data']['password'] : '';
+                $mailjetApi = new Mailjet_Iframes_Helper_ApiWrapper($login, $password);
+
+                Mage::getConfig()->saveConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_LOGIN, $login);
+                Mage::getConfig()->saveConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_PASSWORD, $password);
+                Mage::getConfig()->reinit();
+                Mage::app()->reinitStores();
+                //Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('checkValidApiKey'."\r\n".Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_PASSWORD));
                 $response = $mailjetApi->sender(array('limit' => 1))->getResponse();
                 // Check if the list exists
                 if(!isset($response->Data)) {
@@ -144,7 +149,6 @@ class Mailjet_Iframes_Model_Observer
                     Mage::app()->getResponse()->setRedirect(Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/mailjetiframes_options'));
                     return false;
                 }
-            }
 
 		} catch (Exception $e) {
             Mage::register('failedApiKeyValidation', true);
@@ -153,6 +157,7 @@ class Mailjet_Iframes_Model_Observer
 
         Mage::unregister('failedApiKeyValidation');
         return true;        
+        }
     }
     
     

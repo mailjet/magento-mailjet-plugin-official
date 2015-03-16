@@ -50,7 +50,10 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
      */
     public function iframeAction()
     {
-        $this->checkValidApiCredentials();
+        if($this->checkValidApiCredentials() !== true) {
+            Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('adminhtml')->__("Please verify that you have entered your API and secret key correctly. <br />If this is the case and you have still this error message, please go to Account API keys (<a href='https://www.mailjet.com/account/api_keys'>https://www.mailjet.com/account/api_keys</a>) to regenerate a new Secret Key for the plug-in."));
+            $this->_redirect('adminhtml/system_config/edit/section/mailjetiframes_options');
+        } else {
         $this->loadLayout();
         
         $iframesHelper = $this->_getIframesWrapperHelper();
@@ -63,6 +66,7 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
         
         $this->_setActiveMenu('mailjet/settings');
         $this->renderLayout();
+        }
     }
     /**
      * 
@@ -135,11 +139,9 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
             $this->_secretKey
         );
         $response = $mailjetApi->sender(array('limit' => 1))->getResponse();
-        if(!isset($response->Data)) {
-            Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('adminhtml')->__("Please verify that you have entered your API and secret key correctly. If this is the case and you have still this error message, please go to Account API keys (<a href='https://www.mailjet.com/account/api_keys'>https://www.mailjet.com/account/api_keys</a>) to regenerate a new Secret Key for the plug-in."));
-            Mage::app()->getResponse()->setRedirect(Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/mailjetiframes_options'));
-            return false;
+        if(isset($response->Data)) {
+            return true;
         }
-        return true;
+        return false;
     }
 }
