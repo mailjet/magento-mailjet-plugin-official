@@ -75,8 +75,8 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
     {
         try {
             
-        $postinput = trim(file_get_contents('php://input'));
-            $params = json_decode($postInput, 1);
+	$postInput = trim(file_get_contents('php://input'));
+	$params = json_decode($postInput, 1);
 
             //Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$params'."\r\n".print_r($params, 1));
 
