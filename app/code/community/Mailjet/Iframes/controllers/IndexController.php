@@ -71,11 +71,6 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
     public function eventsAction()
     {
         try {
-            session_start();
-            if($_SESSION['http_logged'] != 1) { 
-                $_SERVER['PHP_AUTH_USER'] = ''; 
-                $_SERVER['PHP_AUTH_PW'] = ''; 
-            } 
             
             $authorizedAccess = 
                 array(
@@ -94,13 +89,10 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
             } 
             
             if (!array_key_exists($username, $authorizedAccess) || $authorizedAccess[$username] != $password) {
-                $_SESSION['http_logged'] = 1; 
                 header('WWW-Authenticate: Basic realm="My Realm"');
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'Unauthorized access !';
                 exit;
-            } else { 
-                $_SESSION['http_logged'] = 0; 
             }
             
             $postInput = trim(file_get_contents('php://input'));
