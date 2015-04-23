@@ -13,7 +13,9 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
 
     private $_allowedProperties = array("email", "firstname", "lastname");
     private $_allowedPropertiesNames = array("email", "first name", "last name");
+    
     public static $_existingListId = null;
+    
     /**
 	 * 
 	 * @param array $contacts
@@ -34,6 +36,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
         if (intval(self::$_existingListId) <= 0) {
             self::$_existingListId = $this->getExistingMailjetListId($filterId);
         }
+        
 		if (intval(self::$_existingListId) > 0) { 
             return $this->_update($contacts, $updateOnlyGiven, self::$_existingListId);
         }
@@ -73,6 +76,8 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
 		return false;
 	}
 
+    
+    
 	/**
 	 * 
 	 * @param int $mailjetListId
@@ -92,14 +97,14 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
             $this->_getApiOverlay()->contactslist($params);
             $res = $this->_getApiOverlay()->getResponse();    	
 			
-            
-
 			return true;
 		}
 
 		return false;
 	}
 
+    
+    
 	/**
 	 * 
 	 * @param array $contacts
@@ -109,9 +114,8 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
 	 */
 	private function _create($contacts, $filterId, $fiterName)
 	{        
-             
 		self::$_existingListId = $this->_createNewMailjetList($filterId, $fiterName);
-
+        
 		if (!isset($contacts) || !is_array($contacts) || !self::$_existingListId) {
             return false;
         }
@@ -146,10 +150,12 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
             $response = Mage::helper('iframes')->__('Try again later');
         }
 
-
 		return $response;
 	}
 
+    
+    
+    
 	/**
 	 * 
 	 * @param array $contacts
@@ -158,23 +164,26 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
 	 */
 	private function _update($contacts, $updateOnlyGiven = false, $existingListId)
 	{
+        
         if (!isset($contacts) || !is_array($contacts) || !$existingListId) {
             return false;
         }
+        
         /*
          * Gather existing Contacts in a given Mailjet list
          * We pass this step if we already have any $_mailjetContacts array - empty or not
          */
-        
         if (!isset($this->_mailjetContacts) || !is_array($this->_mailjetContacts)) {
             $this->_mailjetContacts = array();            
             $this->_gatherCurrentContacts($existingListId);
         }
+        
 		$magentoContacts = array();
         $contactsToCsv = array();
 		foreach ($contacts as $contact) {
             $magentoContacts[] = $contact['email'];
             if (!empty($contact['email'])) {
+                
                 $propertiesToProcess = array();
                 foreach ($this->_allowedProperties as $allowedProperty) {
                     if (isset($contact[$allowedProperty])) {
@@ -186,16 +195,15 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
                 }
             }
         }
-		
 		$contactsToAdd = array();
 		$contactsToRemove = array();
 
-		foreach ($magentoContacts as $email) {
+        foreach ($magentoContacts as $email) {
 			if (!in_array($email, $this->_mailjetContacts)) {
                 $contactsToAdd[] = $contactsToCsv[$email];
             }
 		}
-
+		
         /*
          * When proccessing one contacts (for example on 'edit' event)
          * we skip removing any other contacts from mailjets list
@@ -207,7 +215,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
                 }
             }
         }
-
+        
 		  
 		try {
             
@@ -236,30 +244,35 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
     
     public function addContactsToMailjetList($listId = null, $contactsToAdd = array(), $updateExistingContacts = false)
     {
+       
         if (isset($listId) && !empty($contactsToAdd)) {
+
             if(!isset($contactEmails) || !is_array($contactEmails)) {
                 $contactEmails = array();
             }
-                
+            
             //$contactsToAdd = array_unique($contactsToAdd);
+		
             $contactsFileFolder = Mage::getBaseDir('log');
+
             if (!is_writable($contactsFileFolder)) {
                 chmod($contactsFileFolder, 0777);
             } 
+            
             $file = fopen($contactsFileFolder . '/contacts.csv', 'w');
             $headers = $this->_allowedPropertiesNames;
             fputcsv($file, $headers);
             foreach ($contactsToAdd as $contact) {
                 if (!in_array($contact[0], $contactEmails)) {
-                fputcsv($file, $contact);
+                    fputcsv($file, $contact);
                     $contactEmails[] = $contact[0];
                 }
             }
             fclose($file);
-            
+         
             $contactsStringCsv = file_get_contents($contactsFileFolder . '/contacts.csv');
             @unlink($contactsFileFolder . '/contacts.csv');
-
+            
             $this->_getApiOverlay()->resetRequest();    	
             $this->_getApiOverlay()->data('contactslist', $listId, 'CSVData', 'text/plain', $contactsStringCsv, 'POST', null);
             $res = json_decode($this->_getApiOverlay()->getResponse());    	
@@ -278,7 +291,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
                 throw new Exception(Mage::helper('iframes')->__('Batchjob problem'));
             }
         }
-        
+		
         return true;
     }
     
@@ -376,6 +389,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
         if (!isset($this->_mailjetContacts) || !is_array($this->_mailjetContacts)) {
             $this->_mailjetContacts = array();            
         }
+        
 		$params = array(
 			'method'			=> 'GET',
 			'ContactsList'		=> $mailjetListId,
@@ -393,8 +407,8 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
 		$current 	= isset($response->Count) ? $response->Count : 0;
 
         if (isset($response->Data) && is_array($response->Data)) {
-		foreach ($response->Data as $contact) {
-            $this->_mailjetContacts[] = $contact->Contact->Email->Email;
+            foreach ($response->Data as $contact) {
+                $this->_mailjetContacts[] = $contact->Contact->Email->Email;
             }
         }
 

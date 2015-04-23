@@ -41,6 +41,15 @@
             </core>
         </models>
         <events>
+            <adminhtml_init_system_config>
+                <observers>  
+                    <display_events_tracking_url>
+                        <type>singleton</type>
+                        <class>Mailjet_Iframes_Model_Observer</class>
+                        <method>displayEventsTrackingUrl</method>
+                    </display_events_tracking_url>
+                </observers>
+            </adminhtml_init_system_config>
             <core_config_data_save_commit_after>
                 <observers>                    
                     <check_valid_api_key>

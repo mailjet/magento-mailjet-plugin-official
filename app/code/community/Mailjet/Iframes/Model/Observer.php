@@ -101,6 +101,8 @@ class Mailjet_Iframes_Model_Observer
     }
     
     
+   
+    
     /**
      * Create or Update Mailjet contact list and add all newsletter subscribed Magento customers to that list
      * This event is triggered ot System Configuration save
@@ -111,27 +113,30 @@ class Mailjet_Iframes_Model_Observer
     public function initialSync(Varien_Event_Observer $observer)
     { 
         $data = $observer->getEvent()->getData('data_object')->getData();
-     
         if(isset($data['field']) && $data['field'] == 'login') {
             if(!Mage::registry('failedApiKeyValidation')) {
-            $credentialsOk = Mailjet_Iframes_Helper_Config::checkApiCredentials();
-            if($credentialsOk) {
-                $syncManager = new Mailjet_Iframes_Helper_SyncManager();
-                $syncManager->synchronize();
+                
+                $credentialsOk = Mailjet_Iframes_Helper_Config::checkApiCredentials();
+                if($credentialsOk) {
+                    $syncManager = new Mailjet_Iframes_Helper_SyncManager();
+                    $syncManager->synchronize();
                 }
             }
         }
         return true;        
     }
+
     
     
     
     public function checkValidApiKey(Varien_Event_Observer $observer)
-    {         
-			
-            $data = $observer->getEvent()->getData('data_object')->getData();
-            if(isset($data['field']) && $data['field'] == 'login') {
+    {    
+        $data = $observer->getEvent()->getData('data_object')->getData();
+
+        if(isset($data['field']) && $data['field'] == 'login') {
+            
             try {
+
                 $login = isset($data['fieldset_data']['login']) ? $data['fieldset_data']['login'] : '';
                 $password = isset($data['fieldset_data']['password']) ? $data['fieldset_data']['password'] : '';
                 $mailjetApi = new Mailjet_Iframes_Helper_ApiWrapper($login, $password);
@@ -141,6 +146,7 @@ class Mailjet_Iframes_Model_Observer
                 Mage::getConfig()->reinit();
                 Mage::app()->reinitStores();
                 //Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('checkValidApiKey'."\r\n".Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_PASSWORD));
+
                 $response = $mailjetApi->sender(array('limit' => 1))->getResponse();
                 // Check if the list exists
                 if(!isset($response->Data)) {
@@ -150,14 +156,51 @@ class Mailjet_Iframes_Model_Observer
                     return false;
                 }
 
-		} catch (Exception $e) {
-            Mage::register('failedApiKeyValidation', true);
-			return false;
-		}
-
-        Mage::unregister('failedApiKeyValidation');
-        return true;        
+            } catch (Exception $e) {
+                Mage::register('failedApiKeyValidation', true);
+                return false;
+            }
+       
+            Mage::unregister('failedApiKeyValidation');
+            return true;    
         }
+       
+    }
+    
+    
+    /**
+     * Show a short description and a LINK to the script that handles events like "unsubscribtion"... triggered by the user
+     * @param Varien_Event_Observer $observer
+     * @return boolean
+     */
+    public function displayEventsTrackingUrl(Varien_Event_Observer $observer)
+    {    
+        $data = Mage::app()->getFrontController()->getRequest()->getParams();
+       
+        if ($data['section'] == 'mailjetiframes_options') {
+
+            try {
+
+                $syncManager = new Mailjet_Iframes_Helper_SyncManager();
+                $eventsTrackingUrl = $syncManager->getEventsTrackingUrl();
+                 
+                if(!isset($data['form_key'])) {
+                    Mage::getSingleton('adminhtml/session')->addNotice(
+                        Mage::helper('iframes')->__("To activate Events, you must go to your Mailjet account")
+                            . " <a href='https://mailjet.com/account/triggers'>https://mailjet.com/account/triggers</a><br />"
+                            . Mage::helper('iframes')->__("Specify the Endpoint Url :")
+                            . " <a href='{$eventsTrackingUrl}'>{$eventsTrackingUrl}</a><br />"
+                            . Mage::helper('iframes')->__(" and click on the Events you wish to activate...")
+                        . "<br />"
+                    );
+                }
+
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+
+        return true;    
     }
     
     
