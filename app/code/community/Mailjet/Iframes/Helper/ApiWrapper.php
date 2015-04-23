@@ -15,6 +15,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		string $_apiKey
      */
     private $_apiKey = '';
+    
     /**
      * Mailjet API Secret Key
      * You can edit directly and add here your Mailjet infos
@@ -23,6 +24,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		string $_secretKey
      */
     private $_secretKey = '';
+    
     /**
      * Secure flag to connect through https protocol
      * You can edit directly
@@ -31,6 +33,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		boolean $_secure
      */
     private $_secure = TRUE;
+    
     /**
      * Debug flag :
      * 0 none / 1 errors only / 2 all
@@ -40,6 +43,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		integer $_debug
      */
     private $_debug = 0;
+    
     /**
      * Echo debug ?
      * If not, you can read and display the html error code block
@@ -50,6 +54,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		boolean $_debugEcho
      */
     private $_debugEcho = TRUE;
+    
     /**
      * Default Nb of seconds before updating the cached object
      * If set to 0, Object caching will be disabled
@@ -58,6 +63,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		integer $_cache
      */
     private $_cache = 0;
+    
     /**
      * Cache path
      *
@@ -65,6 +71,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		string $_cache_path
      */
     private $_cache_path = 'cache/';
+    
     /**
      * API version to use.
      *
@@ -72,6 +79,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		string $_version
      */
     private $_version = 'REST';
+    
     /**
      * Output format :
      * php, json, xml, serialize, html, csv
@@ -80,6 +88,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		string $_output
      */
     private $_output = 'json';
+    
     /**
      * API URL.
      *
@@ -87,6 +96,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		string $_apiUrl
      */
     private $_apiUrl = '';
+    
     /**
      * cURL handle resource
      *
@@ -94,6 +104,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		resource $_curl_handle
      */
     private $_curl_handle = NULL;
+    
     /**
      * Singleton pattern : Current instance
      *
@@ -101,6 +112,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		resource $_instance
      */
     private static $_instance = NULL;
+    
     /**
      * Response of the API
      *
@@ -108,6 +120,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		mixed $_response
      */
     private $_response = NULL;
+    
     /**
      * Response code of the API
      *
@@ -115,13 +128,23 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		integer $_response_code
      */
     private $_response_code = 0;
+    
     /**
      * Boolean FALSE or Array of POST args
      *
      * @access	private
      * @var		mixed $_request_post
      */
-    private $_request_post = FALSE;
+	private $_request_post = FALSE;
+    
+	/**
+	 * Paremeters send to the API
+	 *
+	 * @access	private
+	 * @var		array $_request_parameters
+	 */	
+	private $_request_parameters = array();
+    
     /**
      * Full Call URL for debugging purpose
      *
@@ -129,6 +152,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		string $_debugCallUrl
      */
     private $_debugCallUrl = '';
+    
     /**
      * Method for debugging purpose
      *
@@ -136,6 +160,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		string $_debugMethod
      */
     private $_debugMethod = '';
+    
     /**
      * Request for debugging purpose
      *
@@ -143,6 +168,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		string $_debugRequest
      */
     private $_debugRequest = '';
+    
     /**
      * Error as a HTML table
      *
@@ -150,6 +176,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @var		string $_debugErrorHtml
      */
     private $_debugErrorHtml = '';
+    
     /**
      * Constructor
      *
@@ -162,12 +189,14 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @param string $apiKey    Mailjet API Key
      * @param string $secretKey Mailjet API Secret Key
      */
-    public function __construct($apiKey = FALSE, $secretKey = FALSE)
-    {
-        if ( $apiKey )		$this->_apiKey = $apiKey;
-        if ( $secretKey )	$this->_secretKey = $secretKey;
-        $this->_apiUrl = (($this->_secure) ? 'https' : 'http').'://api'.$this->env.'mailjet.com/v3/'.$this->_version;
-    }
+	public function __construct($apiKey = FALSE, $secretKey = FALSE)
+	{
+		if ( $apiKey )		$this->_apiKey = $apiKey;
+		if ( $secretKey )	$this->_secretKey = $secretKey;
+
+		$this->_apiUrl = (($this->_secure) ? 'https' : 'http').'://api'.$this->env.'mailjet.com/v3/'.$this->_version;
+	}
+	
     /**
      * Singleton pattern :
      * Get the instance of the object if it already exists
@@ -277,6 +306,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
   
     	return ($this->_response_code == 200) ? $this : FALSE;
     }
+    
     /**
      * Destructor
      *
@@ -291,6 +321,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
             curl_close($this->_curl_handle);
         $this->_curl_handle = NULL;
     }
+    
     /**
      * Update or set consumer keys
      *
@@ -305,6 +336,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
         $this->_apiKey = $apiKey;
         $this->_secretKey = $secretKey;
     }
+    
     /**
      * Get the API Key
      *
@@ -317,6 +349,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
     {
         return ($this->_apiKey);
     }
+    
     /**
      * Secure or not the transaction through https
      *
@@ -332,6 +365,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
             $protocol = 'https';
         $this->_apiUrl = preg_replace('/http(s)?:\/\//', $protocol.'://', $this->_apiUrl);
     }
+    
     /**
      * Get the last Response HTTP Code
      *
@@ -343,6 +377,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
     {
         return ($this->_response_code);
     }
+    
     /**
      * Get the response from the last call
      *
@@ -354,6 +389,19 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
     {
         return ($this->_response);
     }
+    
+	/**
+	 * Get the request parameters from the last call
+	 *
+	 * @access	public
+	 * @uses	Mailjet::Api::$_request_parameters
+	 * @return mixed Response from the last call
+	 */
+	public function getRequestParameters()
+	{
+		return ($this->_request_parameters);
+	}
+	
     /**
      * Get the last error as a HTML table
      *
@@ -365,6 +413,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
     {
         return ($this->_debugErrorHtml);
     }
+    
     /**
      * Set the current API output format
      *
@@ -375,6 +424,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
     {
         $this->_output = $output;
     }
+    
     /**
      * Get the current API output format
      *
@@ -386,6 +436,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
     {
         return ($this->_output);
     }
+    
     /**
      * Set the debug flag :
      * 0 none / 1 errors only / 2 all
@@ -397,6 +448,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
     {
         $this->_debug = $debug;
     }
+    
     /**
      * Get the debug flag :
      * 0 none / 1 errors only / 2 all
@@ -409,6 +461,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
     {
         return ($this->_debug);
     }
+    
     /**
      * Set the default nb of seconds before updating the cached object
      * If set to 0, Object caching will be disabled
@@ -421,6 +474,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
     {
         $this->_cache = $cache;
     }
+    
     /**
      * Get the default nb of seconds before updating the cached object
      * If set to 0, Object caching will be disabled
@@ -434,6 +488,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
     {
         return ($this->_cache);
     }
+    
     /**
      * Set the Cache path
      *
@@ -469,62 +524,93 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
     {
     	$this->_apiUrl = (($this->_secure) ? 'https' : 'http').'://api'.$this->env.'mailjet.com/v3/'.$this->_version;
     	$this->_request_post = false;
+    	
+		// Reset params for next request
+		$this->_request_parameters = null;
+
+		// Reset curl handle (there is an issue if not reset with calls like newsletterSchedule / newsletterContent / ... after a newsletter creation call)
+		$this->_curl_handle = null;
     }
-    /**
-     * Read object from cache if available and not outdated
-     *
-     * @access	private
-     * @uses	Mailjet::Api::$_cache
-     * @uses	Mailjet::Api::$_cache_path
-     * @param string $object  Object or collection of resources you want to access
-     * @param array  $params  Additional parameters for the request
-     * @param string $request cURL request method (GET | POST)
-     *
-     * @return mixed Cached object, NULL otherwise
-     */
-    private function readCache($object, $params, $request)
-    {
-        if (isset($params['cache'])) {
-            $cache = $params['cache'];
-            unset($params['cache']);
-        } else
-            $cache = $this->_cache;
-        if ($request == 'GET' && $cache != 0) {
-            sort($params);
-            $file = $object.'.'.hash('md5', $this->_apiKey.http_build_query($params, '', '')).'.'.$this->_output;
-            if (file_exists($this->_cache_path.$file)) {
-                $data = unserialize(file_get_contents($this->_cache_path.$file));
-                if ($data['timestamp'] > time() - $cache)
-                    return ($data['result']);
-            }
-        }
-        return (NULL);
-    }
-    /**
-     * Write object to cache
-     *
-     * @access	private
-     * @uses	Mailjet::Api::$_cache
-     * @uses	Mailjet::Api::$_cache_path
-     * @param string $object  Object or collection of resources you want to access
-     * @param array  $params  Additional parameters for the request
-     * @param string $request cURL request method (GET | POST)
-     * @param string $result  Result of the cURL request
-     */
-    private function writeCache($object, $params, $request, $result)
-    {
-        if (isset($params['cache'])) {
-            $cache = $params['cache'];
-            unset($params['cache']);
-        } else
-            $cache = $this->_cache;
-        if ($request == 'GET' && $cache != 0) {
-            sort($params);
-            $file = $object.'.'.hash('md5', $this->_apiKey.http_build_query($params, '', '')).'.'.$this->_output;
-            $data = array('timestamp' => time(), 'result' => $result);
-            file_put_contents($this->_cache_path.$file, serialize($data));
-        }
-    }
+    
+	/**
+	 * Read object from cache if available and not outdated
+	 *
+	 * @access	private
+	 * @uses	Mailjet::Api::$_cache
+	 * @uses	Mailjet::Api::$_cache_path
+	 * @param string $object  Object or collection of resources you want to access
+	 * @param string $request cURL request method (GET | POST)
+	 *
+	 * @return mixed Cached object, NULL otherwise
+	 */
+	private function readCache($object, $request)
+	{
+		$params = $this->getRequestParameters();
+
+		if (isset( $params['cache'])) {
+
+			$cache = $params['cache'];
+			$this->_unsetParameterFromRequest('cache');
+
+		} else {
+
+			$cache = $this->_cache;
+		}
+
+		if ($request == 'GET' && $cache != 0) {
+
+			sort($params);
+			$file = $object . '.' . hash('md5', $this->_apiKey . http_build_query($params, '', '')) . '.' . $this->_output;
+
+			if (file_exists($this->_cache_path . $file)) {
+
+				$data = unserialize(file_get_contents($this->_cache_path . $file));
+
+				if ($data['timestamp'] > time() - $cache) {
+
+					return ($data['result']);
+				}
+			}
+		}
+
+		return (NULL);
+	}
+	
+	/**
+	 * Write object to cache
+	 *
+	 * @access	private
+	 * @uses	Mailjet::Api::$_cache
+	 * @uses	Mailjet::Api::$_cache_path
+	 * @param string $object  Object or collection of resources you want to access
+	 * @param string $request cURL request method (GET | POST)
+	 * @param string $result  Result of the cURL request
+	 */
+	private function writeCache($object, $request, $result)
+	{
+		$params = $this->getRequestParameters();
+
+		if (isset($params['cache'])) {
+
+			$cache = $params['cache'];
+			$this->_unsetParameterFromRequest('cache');
+
+		} else {
+
+			$cache = $this->_cache;
+		}
+
+		if ($request == 'GET' && $cache != 0) {
+
+			sort($params);
+
+			$file = $object . '.' .hash('md5', $this->_apiKey . http_build_query($params, '', '')) . '.' . $this->_output;
+			$data = array('timestamp' => time(), 'result' => $result);
+
+			file_put_contents($this->_cache_path . $file, serialize($data));
+		}
+	}
+	
     /**
      * Make the magic call ;)
      *
@@ -540,22 +626,39 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @return mixed array with the status of the response
      * and the result of the request OR FALSE on failure.
      */
-    public function __call($method, $args)
-    {
-        $params = (sizeof($args) > 0) ? $args[0] : array();
-        $request = isset($params["method"]) ? strtoupper($params["method"]) : 'GET';
-        if (isset($params["method"])) unset($params["method"]);
-        $result = $this->readCache($method,$params,$request);
-        if (is_null($result)) {
-            if ($result = $this->sendRequest($method,$params,$request))
-                $this->writeCache($method,$params,$request, $this->_response);
-        } else
-            return ($this);
-        $return = ($result === TRUE) ? $this->_response : FALSE;
-        if ( $this->_debug == 2 || ( $this->_debug == 1 && $return == FALSE ) )
-            $this->debug();
-        return $this;
-    }
+	public function __call($method, $args)
+	{
+		$this->_request_parameters = (sizeof($args) > 0) ? $args[0] : array();
+
+		$params = $this->getRequestParameters();
+
+		$request = isset($params["method"]) ? strtoupper($params["method"]) : 'GET';
+
+		$this->_unsetParameterFromRequest('method');
+
+		$result = $this->readCache($method, $request);
+
+		if (is_null($result)) {
+
+			if ($result = $this->sendRequest($method, $request)) {
+
+				$this->writeCache($method, $request, $this->getResponse());
+			}
+
+		} else {
+
+			return ($this);
+		}
+
+		$return = ($result === TRUE) ? $this->_response : FALSE;
+
+		if ( $this->_debug == 2 || ( $this->_debug == 1 && $return == FALSE ) ) {
+			$this->debug();
+		}
+
+		return $this;
+	}
+	
     /**
      * Build the full Url for the request
      *
@@ -563,31 +666,53 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @uses	Mailjet::Api::$_apiUrl
      * @uses	Mailjet::Api::$_debugCallUrl
      * @param string $method  Method to call
-     * @param array  $params  Additional parameters for the request
      * @param string $request Request method
      *
      * @return string Full built Url for the request
      */
-    private function requestUrlBuilder($method, $params, $request)
-    {
-        $query_string = array();
-        foreach ($params as $key => $value) {
-            if ($request == "GET" || in_array($key, array('apikey','output')))
-                $query_string[$key] = $key.'='.urlencode($value);
-            if ($key == "output")
-                $this->_output = $value;
-        }
-        $query_string['output'] = 'output='.urlencode($this->_output);
+	private function requestUrlBuilder($method, $request) {
+
+		$params = $this->getRequestParameters();
+		
+		$query_string = array();
+
+		foreach($params as $key => $value) {
+
+			if ($request == "GET" || in_array($key, array('apikey', 'output'))) {
+
+				$query_string[$key] = $key . '=' . urlencode($value);
+			}
+
+			if ($key == "output") {
+
+				$this->_output = $value;
+			}
+		}
+
+        $query_string['output'] = 'output=' . urlencode($this->_output);
+		
+		$identifier = $this->_getIdentifierFromParameters();
         
-        if (isset($params['ID']) && $params['ID']) {
-        	$id = $params['ID'];
-        	unset($params['ID']);
-        	$this->_debugCallUrl = $this->_apiUrl.'/'.$method.'/'.$id.'?'.join('&',$query_string);
+        if ($identifier) {
+			
+			// Manage newsletter actions
+			if (preg_match('/newsletter([a-zA-Z]+)/', $method, $matches)) {
+				$method = "newsletter";
+				$action = strtolower($matches[1]);
+			}
+			
+			$this->_debugCallUrl = isset($action) 
+									? $this->_apiUrl . '/' . $method . '/' . $identifier . '/' . $action . '/?' . join('&', $query_string)
+									: $this->_apiUrl . '/' . $method . '/' . $identifier . '/?' . join('&', $query_string);
+		
         } else {
-        	$this->_debugCallUrl = $this->_apiUrl.'/'.$method.'/?'.join('&',$query_string);
+			
+        	$this->_debugCallUrl = $this->_apiUrl . '/' . $method . '/?' . join('&', $query_string);
         }
+		
         return $this->_debugCallUrl;
     }
+    
     /**
      * Send Request
      *
@@ -601,94 +726,175 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
      * @uses	Mailjet::Api::$_curl_handle
      * @uses	Mailjet::Api::requestUrlBuilder() to build the full Url for the request
      * @param string $method  Method to call
-     * @param array  $params  Additional parameters for the request
      * @param string $request Request method
      *
      * @return string the result of the request
      */
-    private function sendRequest($method = FALSE,$params=array(),$request="GET", $url = false)
+    private function sendRequest($method = FALSE, $request="GET", $url = false)
     {
+		$params = $this->getRequestParameters();
+		
     	$is_json_put = (isset($params['ID']) && !empty($params['ID']));
-    	
+    			
         if ($this->_debug != 0) {
+			
             $this->_debugMethod = $method;
             $this->_debugRequest = $request;
         }
         
         if ($url == false) {
-        	$url = $this->requestUrlBuilder($method, $params, $request);
+        	$url = $this->requestUrlBuilder($method, $request);
         }
-        if(is_null($this->_curl_handle))
+		
+		// To manage newsletter actions we need to delete the id
+		if (preg_match('/newsletter([a-zA-Z]+)/', $method, $matches)) {
+
+			$this->_unsetParameterFromRequest('ID');
+		}
+		
+        if (is_null($this->_curl_handle)) {
             $this->_curl_handle = curl_init();
+		}
+		
         curl_setopt($this->_curl_handle, CURLOPT_URL, $url);
         curl_setopt($this->_curl_handle, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($this->_curl_handle, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($this->_curl_handle, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($this->_curl_handle, CURLOPT_TIMEOUT, 10); //timeout in seconds
-        curl_setopt($this->_curl_handle, CURLOPT_USERPWD, $this->_apiKey.':'.$this->_secretKey);
+        curl_setopt($this->_curl_handle, CURLOPT_USERPWD, $this->_apiKey . ':' . $this->_secretKey);
+				
         switch ($request) {
+			
             case 'GET' :
+				
                 curl_setopt($this->_curl_handle, CURLOPT_CUSTOMREQUEST, 'GET');
                 curl_setopt($this->_curl_handle, CURLOPT_HTTPGET, TRUE);
                 curl_setopt($this->_curl_handle, CURLOPT_POSTFIELDS, NULL);
                 $this->_request_post = FALSE;
+				
                 break;
+			
             case 'POST':
-                if( isset($params['Action']) && isset($params['ListID']) ){
-                    curl_setopt($this->_curl_handle, CURLOPT_CUSTOMREQUEST, 'POST');
-                }
-                else{
+				
+                if (isset($params['Action']) && isset($params['ListID'])) {
+                    
+					curl_setopt($this->_curl_handle, CURLOPT_CUSTOMREQUEST, 'POST');
+					
+                } else {
+					
                     curl_setopt($this->_curl_handle, CURLOPT_CUSTOMREQUEST, 'JSON');
                 }
                 
                 curl_setopt($this->_curl_handle, CURLOPT_POST, count($params));
-                if( isset($params['Action']) && isset($params['ListID']) ){
+				
+                if (isset($params['Action']) && isset($params['ListID'])) {
+					
                     curl_setopt($this->_curl_handle, CURLOPT_POSTFIELDS, json_encode($params));
                     curl_setopt($this->_curl_handle, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                }
-                else{
+					
+                } else{
+					
                     curl_setopt($this->_curl_handle, CURLOPT_POSTFIELDS, http_build_query($params, '', '&'));
                 }
                 
                 $this->_request_post = $params;
+				
                 break;
+				
             case 'PUT':
+				
                 curl_setopt($this->_curl_handle, CURLOPT_CUSTOMREQUEST, 'PUT');
                 curl_setopt($this->_curl_handle, CURLOPT_POSTFIELDS, http_build_query($params, '', '&'));
-            break;
+				
+				break;
+			
             case 'DELETE':
+				
                 curl_setopt($this->_curl_handle, CURLOPT_CUSTOMREQUEST, 'DELETE');
                 /*curl_setopt($this->_curl_handle, CURLOPT_POSTFIELDS, http_build_query($params, '', '&'));*/
+				
                 $this->_request_post = $params;
+				
                 curl_setopt($this->_curl_handle, CURLOPT_POSTFIELDS, json_encode($this->_request_post));
                 curl_setopt($this->_curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
                 curl_setopt($this->_curl_handle, CURLOPT_HTTPHEADER, array(
                         'Content-Type: application/json',
                         'Content-Length: ' . strlen(json_encode($this->_request_post)))
                 );
-            break;
+				
+				break;
+			
             case 'JSON':
-            	if($is_json_put)
+				
+            	if ($is_json_put) {
+					
             		curl_setopt($this->_curl_handle, CURLOPT_CUSTOMREQUEST, "PUT");
-            	else
+					
+				} else {
+					
             		curl_setopt($this->_curl_handle, CURLOPT_CUSTOMREQUEST, "POST");
+				}
             	 
             	$this->_request_post = $params;
+				
             	curl_setopt($this->_curl_handle, CURLOPT_POSTFIELDS, json_encode($this->_request_post));
             	curl_setopt($this->_curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
             	curl_setopt($this->_curl_handle, CURLOPT_HTTPHEADER, array(
             			'Content-Type: application/json',
             			'Content-Length: ' . strlen(json_encode($this->_request_post)))
             	);
+				
             	break;
         }
+		
         $buffer = curl_exec($this->_curl_handle);
-        if ($this->_debug > 2)
+		
+        if ($this->_debug > 2) {
             var_dump($buffer);
+		}
+		
         $this->_response_code = curl_getinfo($this->_curl_handle,CURLINFO_HTTP_CODE);
         $this->_response = ($this->_output == 'json') ? json_decode($buffer) : $buffer;
+		
         return ($this->_response_code == 200) ? TRUE : FALSE;
     }
+		
+	/**
+	 * Get the identifier from the request parameters
+	 *
+	 * @access	private
+	 * @uses	Mailjet::Api::$_request_parameters
+	 */
+	private function _unsetParameterFromRequest($key) {
+
+		if (array_key_exists($key, $this->_request_parameters)) {
+			unset($this->_request_parameters["method"]);
+		}
+
+		return $this->_request_parameters;
+	}
+	 
+	/**
+	 * Get the identifier from the request parameters
+	 *
+	 * @access	private
+	 * @uses	Mailjet::Api::$_request_parameters
+	 */
+	private function _getIdentifierFromParameters() {
+
+		$params = $this->getRequestParameters();
+
+		if (array_key_exists('ID', $params)) {
+			return $params['ID'];
+		}
+
+		if (array_key_exists('Email', $params)) {
+			return $params['Email'];
+		}
+
+		return false;
+	}
+    
     
     /**
      * Display debugging information
