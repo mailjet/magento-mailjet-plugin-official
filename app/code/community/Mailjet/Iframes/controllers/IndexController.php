@@ -71,7 +71,7 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
     public function eventsAction()
     {
         try {
-            
+           
             $authorizedAccess = 
                 array(
                     Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_LOGIN)
@@ -93,7 +93,7 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'Unauthorized access !';
                 exit;
-            }
+            } 
             
             $postInput = trim(file_get_contents('php://input'));
             
