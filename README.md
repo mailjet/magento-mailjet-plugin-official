@@ -62,10 +62,10 @@ If you are not yet a Mailjet user, please click [Register](https://app.mailjet.c
 
 
 ## Screenshots 
-* https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Magento_Downloader.png
-* https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Magento_uninstall.png
-* https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Configuration_System_Magento_Admin.png
-* https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Magento_Iframe.png
+* Plugin archive upload -  https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Magento_Downloader.png
+* Plugin uninstallation - https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Magento_uninstall.png
+* Mailjet API authentication - https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Configuration_System_Magento_Admin.png
+* Mailjet account Dashboard -  https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Magento_Iframe.png
 
 
 ## Changelog
