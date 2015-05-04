@@ -2,7 +2,7 @@
 
 ## Description 
 
-Increase your merchant revenue with the Mailjet v3 all-in-one Magento email plugin! Create, send and analyze your transactional and email marketing campaigns straight from within your Magento merchant account and boost your bottom line.Mailjet is a powerful all-in-one email service provider used to get maximum insight and deliverability results from both marketing and transactional emails. Our analytics tools and intelligent APIs give senders the best understanding of how to maximize benefits for each individual contact and campaign email after email.
+Increase your merchant revenue with the Mailjet v3 all-in-one Magento email plugin! Create, send and analyze your transactional and email marketing campaigns straight from within your Magento admin and boost your bottom line. Mailjet is a powerful all-in-one email service provider used to get maximum insight and deliverability results from both marketing and transactional emails. Our analytics tools and intelligent APIs give senders the best understanding of how to maximize benefits for each individual contact and campaign email after email.
 
 
 <b>PLEASE NOTE</b> - this version of Mailjet’s add-on is compatible with only Mailjet v3 users.  If you are a v1 user (any account created before April 2014), please request to get your account migrated via https://www.mailjet.com/support/ticket. 
@@ -20,15 +20,15 @@ Increase your merchant revenue with the Mailjet v3 all-in-one Magento email plug
 
 With Mailjet, optimise your deliverability, get your emails delivered to the inbox and avoid the spam folder. Install the official Mailjet Magento extension and get access to:
  
-* Setup your Magento website/store to use Mailjet's SMTP relay with enhanced deliverability and tracking. 
+* Use Mailjet's SMTP relay with enhanced deliverability and tracking. 
 
 * The extension also provides the ability to initially synchronise all of your Magento newsletter subscribed customers to your Mailjet account and send bulk and targeted emails to them with real time statistics including opens, clicks, geography, average time to click, unsubs, etc.
 
 * Trigger customer synchronization based on certain events occurred in Magento like new customer registration, customer profile changes, newsletter subscription/unsubscription, all customer`s profile changes by the site Admin, etc..
   
-* Automatically remove unsubscribers from your contact lists and Newsletter list to keep your deliverability reputation intact
+* Automatically remove unsubscribers from your contact lists and Newsletters to keep your deliverability reputation intact
  
-* Personalize your mailings with any contact list properties
+* Personalize your emailings with contact list properties
  
 * Create & manage all Mailjet campaigns and contacts directly within Magento
 
