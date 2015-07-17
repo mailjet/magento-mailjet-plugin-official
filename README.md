@@ -70,3 +70,5 @@ If you are not yet a Mailjet user, please click [Register](https://app.mailjet.c
 * Initial upload.
 
 
+## Support
+https://www.mailjet.com/support/ticket
