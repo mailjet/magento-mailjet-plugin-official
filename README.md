@@ -57,10 +57,6 @@ Your customers will benefit by receiving personalized and pertinent emails deliv
 
 If you are not yet a Mailjet user, please click [Register](https://app.mailjet.com/signup?p=magento-3.0) to create a new account. 
 
-## FAQ
-
-
-
 ## Screenshots 
 * Plugin archive upload -  https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Magento_Downloader.png
 * Plugin uninstallation - https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Magento_uninstall.png
@@ -74,9 +70,3 @@ If you are not yet a Mailjet user, please click [Register](https://app.mailjet.c
 * Initial upload.
 
 
-
-## Support
-
-
- 
-Happy emailing!
