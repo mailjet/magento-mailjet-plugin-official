@@ -74,7 +74,7 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
            
             $authorizedAccess = 
                 array(
-                    Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_LOGIN)
+                    Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_LOGIN, 'default')
                         => Mage::getStoreConfig(Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_PASSWORD)
                 );
             
