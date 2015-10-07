@@ -54,7 +54,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
      *
      * @var string
      */
-    private $locale             = 'fr_FR';
+    private $locale             = 'en_US';
 
     /**
      *
@@ -193,7 +193,7 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
      * @return \Mailjet_Iframes_Helper_IframesWrapper
      * @throws Mailjet_Iframes_Helper_IframesWrapper_Exception
      */
-    public function setLocale($locale = 'fr_FR')
+    public function setLocale($locale = 'en_US')
     {
         if (!in_array($locale, $this->locales)) {
             throw new Mailjet_Iframes_Helper_IframesWrapper_Exception(

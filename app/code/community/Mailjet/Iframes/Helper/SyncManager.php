@@ -35,12 +35,12 @@ class Mailjet_Iframes_Helper_SyncManager extends Mage_Core_Helper_Abstract
         $pages = ceil($customerCollectionCount/$pageSize);    
         
         Mage::register('startSynchronization', true);
-			
+/*
         $existingMailjetList = $sync->getExistingMailjetListId();
         if (intval($existingMailjetList) > 0) {
             $sync->deleteList($existingMailjetList);
         }
-
+*/
         for ($i = 0; $i <= $pages; $i++) {
              
             $subscribersData = array();
