@@ -66,7 +66,9 @@ class Mailjet_Iframes_Model_Email_Template extends Mage_Core_Model_Email_Templat
         }
 
         else {
-            $mail->addTo($Mail->getToEmail(), '=?utf-8?B?' . base64_encode($Mail->getToName()) . '?=');
+            
+			$toName = $Mail->getToName();			
+            $mail->addTo($Mail->getToEmail(), '=?utf-8?B?' . base64_encode(is_array($toName) ? $toName[0] : $Mail->getToName()) . '?=');
         }
 
         $mail->setFrom($Mail->getFromEmail(), $Mail->getFromName());
