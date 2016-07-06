@@ -37,6 +37,7 @@
             <core>
                 <rewrite>
                     <email_template>Mailjet_Iframes_Model_Email_Template</email_template>
+                    <email_queue>Mailjet_Iframes_Model_Email_Queue</email_queue>
                 </rewrite>
             </core>
         </models>
