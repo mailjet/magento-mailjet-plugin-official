@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Mailjet_Iframes>
-            <version>1.0.0</version>
+            <version>2.0.0</version>
         </Mailjet_Iframes>
     </modules>
     <global>
@@ -37,7 +37,6 @@
             <core>
                 <rewrite>
                     <email_template>Mailjet_Iframes_Model_Email_Template</email_template>
-                    <email_queue>Mailjet_Iframes_Model_Email_Queue</email_queue>
                 </rewrite>
             </core>
         </models>
@@ -51,8 +50,8 @@
                     </display_events_tracking_url>
                 </observers>
             </adminhtml_init_system_config>
-            <core_config_data_save_commit_after>
-                <observers>                    
+             <core_config_data_save_commit_after>
+                <observers>  
                     <check_valid_api_key>
                         <type>singleton</type>
                         <class>Mailjet_Iframes_Model_Observer</class>
@@ -63,11 +62,11 @@
                         <class>Mailjet_Iframes_Model_Observer</class>
                         <method>sendTestMail</method>
                     </test_mail>
-                    <initial_sync>
+<!--                    <initial_sync>
                         <type>singleton</type>
                         <class>Mailjet_Iframes_Model_Observer</class>
                         <method>initialSync</method>
-                    </initial_sync>
+                    </initial_sync>-->
                 </observers>
             </core_config_data_save_commit_after>
             <customer_register_success>
@@ -106,6 +105,15 @@
                     </customer_delete>
                 </observers>
             </customer_delete_commit_after>
+<!--            <checkout_type_onepage_save_order_after>
+                <observers>
+                    <make_order>
+                        <type>singleton</type>
+                        <class>Mailjet_Iframes_Model_Observer</class>
+                        <method>customerNewOrderSync</method>
+                    </make_order>
+                </observers>
+            </checkout_type_onepage_save_order_after>-->
         </events>
         <resources>
             <iframes_setup>

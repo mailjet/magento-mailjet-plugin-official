@@ -1,0 +1,94 @@
+<_>
+   <form_key>U2SWlvNCcn1exxZG</form_key>
+   <name>Mailjet_Iframes</name>
+   <channel>community</channel>
+   <version_ids>
+      <version_ids>2</version_ids>
+   </version_ids>
+   <summary>Mailjet APIv3 plugin for Magento</summary>
+   <description>[API v3] Mailjet for Magento. Mailjet&apos;s Magento plugin provides complete control of Email settings with Magento. It replaces your default SMTP settings to route your emails with Mailjet.</description>
+   <license>GNU General Public License (GPL)</license>
+   <license_uri/>
+   <version>2.0.0</version>
+   <stability>stable</stability>
+   <notes>initial version</notes>
+   <authors>
+      <name>
+         <name>Ferhan Ismailov</name>
+      </name>
+      <user>
+         <user>Ferhan</user>
+      </user>
+      <email>
+         <email>fismailov@mailjet.com</email>
+      </email>
+   </authors>
+   <depends_php_min>5.2.0</depends_php_min>
+   <depends_php_max>6.0.0</depends_php_max>
+   <depends>
+      <package>
+         <name>
+            <name/>
+         </name>
+         <channel>
+            <channel/>
+         </channel>
+         <min>
+            <min/>
+         </min>
+         <max>
+            <max/>
+         </max>
+         <files>
+            <files>                                    </files>
+         </files>
+      </package>
+      <extension>
+         <name>
+            <name>Core</name>
+         </name>
+         <min>
+            <min/>
+         </min>
+         <max>
+            <max/>
+         </max>
+      </extension>
+   </depends>
+   <contents>
+      <target>
+         <target>magelocal</target>
+         <target>mageetc</target>
+         <target>magecommunity</target>
+         <target>magelocale</target>
+      </target>
+      <path>
+         <path/>
+         <path>modules/Mailjet_Iframes.xml</path>
+         <path>Mailjet/Iframes</path>
+         <path/>
+      </path>
+      <type>
+         <type>file</type>
+         <type>file</type>
+         <type>dir</type>
+         <type>dir</type>
+      </type>
+      <include>
+         <include/>
+         <include/>
+         <include/>
+         <include>#Mailjet_Iframes.csv#</include>
+      </include>
+      <ignore>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+      </ignore>
+   </contents>
+   <page>1</page>
+   <limit>200</limit>
+   <folder/>
+   <package/>
+</_>
