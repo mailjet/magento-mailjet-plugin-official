@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mailjet_Iframes>
+            <active>true</active>
+            <codePool>community</codePool>
+	    <version>2.0.0</version>
+        </Mailjet_Iframes>
+    </modules>
+</config>
