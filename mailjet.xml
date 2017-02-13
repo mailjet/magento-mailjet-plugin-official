@@ -1,6 +1,6 @@
 <_>
-   <form_key>U2SWlvNCcn1exxZG</form_key>
-   <name>Mailjet_Iframes</name>
+   <form_key>V6UERQXLfICpGCXd</form_key>
+   <name>mailjet</name>
    <channel>community</channel>
    <version_ids>
       <version_ids>2</version_ids>
@@ -40,7 +40,7 @@
             <max/>
          </max>
          <files>
-            <files>                                    </files>
+            <files>                                         </files>
          </files>
       </package>
       <extension>
@@ -87,8 +87,4 @@
          <ignore/>
       </ignore>
    </contents>
-   <page>1</page>
-   <limit>200</limit>
-   <folder/>
-   <package/>
 </_>
