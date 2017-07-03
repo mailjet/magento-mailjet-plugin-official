@@ -66,6 +66,9 @@ If you are not yet a Mailjet user, please click [Register](https://app.mailjet.c
 
 ## Changelog
 
+= 2.0.1 =
+* Fix initial sync.
+
 = 2.0.0 =
 * Configure plugin for releas on Magento Connect portal.
 
