@@ -62,11 +62,11 @@
                         <class>Mailjet_Iframes_Model_Observer</class>
                         <method>sendTestMail</method>
                     </test_mail>
-<!--                    <initial_sync>
+                    <initial_sync>
                         <type>singleton</type>
                         <class>Mailjet_Iframes_Model_Observer</class>
                         <method>initialSync</method>
-                    </initial_sync>-->
+                    </initial_sync>
                 </observers>
             </core_config_data_save_commit_after>
             <customer_register_success>
