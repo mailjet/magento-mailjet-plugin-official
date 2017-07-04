@@ -1,5 +1,5 @@
 <_>
-   <form_key>V6UERQXLfICpGCXd</form_key>
+   <form_key>ukws0JFpoRD8OdKF</form_key>
    <name>mailjet</name>
    <channel>community</channel>
    <version_ids>
@@ -11,7 +11,7 @@
    <license_uri/>
    <version>2.0.1</version>
    <stability>stable</stability>
-   <notes>initial version</notes>
+   <notes>Fix minor issues</notes>
    <authors>
       <name>
          <name>Ferhan Ismailov</name>
@@ -40,7 +40,7 @@
             <max/>
          </max>
          <files>
-            <files>                                         </files>
+            <files>                                             </files>
          </files>
       </package>
       <extension>
@@ -87,4 +87,8 @@
          <ignore/>
       </ignore>
    </contents>
+   <page>1</page>
+   <limit>200</limit>
+   <folder/>
+   <package/>
 </_>
