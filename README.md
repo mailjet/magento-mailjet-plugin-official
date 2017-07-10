@@ -66,6 +66,9 @@ If you are not yet a Mailjet user, please click [Register](https://app.mailjet.c
 
 ## Changelog
 
+= 2.0.3 =
+* Fix encoding and removed redundant method usage.
+
 = 2.0.1 =
 * Fix initial sync.
 
