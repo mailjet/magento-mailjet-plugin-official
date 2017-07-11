@@ -49,13 +49,16 @@ Your customers will benefit by receiving personalized and pertinent emails deliv
 
 ## Installation:
 
-1. Download the plugin archive.
+1. Download the plugin archive Mailjet-2.x.x.tgz
 2. Log in as administrator in Magento
 3. Go to System > Magento connect manager and upload the archive file using the section "Direct package file upload". (Be sure there is no any previous version of the plugin already installed - GO to section "Manage Existing Extensions" and check the list for mailjet plugin and if exists uninstall it.)
-4. Connect your Mailjet Account (Go to Magento Admin > System > Configuration > Mailjet settings). 
-5. Once you have a valid Mailjet account and entered valid API credentials click on 'Save Config' button and all of your Magento newsletter subscribed customers will be synchronized with Mailjet and a new contact list with all of your synchronized Magento contacts will be added to your account.
+4. Connect your Mailjet Account (Go to Magento Admin > System > Configuration > Mailjet settings).
+5. Once you have a valid Mailjet account and entered valid API credentials click on "Save Config" button and all of your Magento newsletter subscribed customers will be synchronized with Mailjet and a new contact list with all of your synchronized Magento contacts will be added to your account.
 
-If you are not yet a Mailjet user, please click [Register](https://app.mailjet.com/signup?p=magento-3.0) to create a new account. 
+**Important!** 
+* Make sure to apply the settings for each "Configuration scope"!
+* The email address used by the Mailjet Plugin for sending emails is the "Magento General Contact" (Can be found in Magento Admin > General > Contacts > General contact). This address must also be validated in your [Mailjet account](https://app.mailjet.com/account/sender).
+* If you are not yet a Mailjet user, please click [Register](https://app.mailjet.com/signup?p=magento-3.0) to create a new account.
 
 ## Screenshots 
 * Plugin archive upload -  https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Magento_Downloader.png
