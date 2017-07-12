@@ -57,7 +57,7 @@ Your customers will benefit by receiving personalized and pertinent emails deliv
 
 **Important!** 
 * Make sure to apply the settings for each "Configuration scope"!
-* The email address used by the Mailjet Plugin for sending emails is the "Magento General Contact" (Can be found in Magento Admin > General > Contacts > General contact). This address must also be validated in your [Mailjet account](https://app.mailjet.com/account/sender).
+* The email address used by the Mailjet Plugin for sending emails is the "Magento General Contact" (Can be found in Magento Admin > General > Store Email Addresses > General contact). This address must also be validated in your [Mailjet account](https://app.mailjet.com/account/sender).
 * If you are not yet a Mailjet user, please click [Register](https://app.mailjet.com/signup?p=magento-3.0) to create a new account.
 
 ## Screenshots 
