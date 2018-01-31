@@ -12,7 +12,7 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
     const FILTER_ID = '1';
 
     private $_allowedProperties = array("email", "firstname", "lastname");
-    private $_allowedPropertiesNames = array("email", "first name", "last name");
+    private $_allowedPropertiesNames = array("email", "firstname", "lastname");
     
     public static $_existingListId = null;
     
