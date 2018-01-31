@@ -1,5 +1,5 @@
 <_>
-   <form_key>THYs8XJr43J4FTah</form_key>
+   <form_key>syyNq3Q8XoWTvhoK</form_key>
    <name>mailjet</name>
    <channel>community</channel>
    <version_ids>
@@ -9,9 +9,9 @@
    <description>[API v3] Mailjet for Magento. Mailjet&apos;s Magento plugin provides complete control of Email settings with Magento. It replaces your default SMTP settings to route your emails with Mailjet.</description>
    <license>GNU General Public License (GPL)</license>
    <license_uri/>
-   <version>2.0.3</version>
+   <version>2.0.4</version>
    <stability>stable</stability>
-   <notes>Fix encoding and remove redundant method calling.</notes>
+   <notes>Fixed initial synchronization for contacts</notes>
    <authors>
       <name>
          <name>Ferhan Ismailov</name>
@@ -43,7 +43,7 @@
             <max/>
          </max>
          <files>
-            <files>                                                         </files>
+            <files>                                                           </files>
          </files>
       </package>
       <extension>
