@@ -236,6 +236,8 @@ class Mailjet_Iframes_Model_Observer
         $credentialsOk = Mailjet_Iframes_Helper_Config::checkApiCredentials();
         if($credentialsOk) {
             $syncManager = new Mailjet_Iframes_Helper_SyncManager();
+        } else {
+            return false;
         }
         
         $customer = $observer->getCustomer();
