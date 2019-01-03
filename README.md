@@ -1,19 +1,17 @@
+![alt text](https://www.mailjet.com/images/email/transac/logo_header.png "Mailjet")
+
 # [API v3] Mailjet for Magento
 
 ## Description 
 
-Increase your merchant revenue with the Mailjet v3 all-in-one Magento email plugin! Create, send and analyze your transactional and email marketing campaigns straight from within your Magento admin and boost your bottom line. Mailjet is a powerful all-in-one email service provider used to get maximum insight and deliverability results from both marketing and transactional emails. Our analytics tools and intelligent APIs give senders the best understanding of how to maximize benefits for each individual contact and campaign email after email.
-
-
-<b>PLEASE NOTE</b> - this version of Mailjet’s add-on is compatible with only Mailjet v3 users.  If you are a v1 user (any account created before April 2014), please request to get your account migrated via https://www.mailjet.com/support/ticket. 
+Increase your merchant revenue with the Mailjet all-in-one Magento email plugin! Create, send and analyze your transactional and email marketing campaigns straight from within your Magento admin and boost your bottom line. Mailjet is a powerful all-in-one email service provider used to get maximum insight and deliverability results from both marketing and transactional emails. Our analytics tools and intelligent APIs give senders the best understanding of how to maximize benefits for each individual contact and campaign email after email.
 
 ## Plug-in Key Info
 
 * Plug-in languages: EN
-* PHP Compatibility: PHP 5.2.0 - 6.0.0
-* Magento Compatibility: Magento v1.5.0.0 and above
-* Mailjet Compatibility: Mailjet v3
-* Support: https://www.mailjet.com/support/ticket
+* PHP Compatibility: PHP 5.2.0 - 7.2.0
+* Magento Compatibility: Magento v1.5.0.0 - v1.9.x. Magento 2.0 is not supported by this plugin!
+* Support: https://app.mailjet.com/support/ticket
 * Requires Mailjet account
 
 ## Merchant Benefits
