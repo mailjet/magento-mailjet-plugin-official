@@ -67,6 +67,10 @@ Your customers will benefit by receiving personalized and pertinent emails deliv
 
 ## Changelog
 
+= 2.0.5 =
+* Improve email events processing - to handle both type 1 and type 2 of event API messages
+* Fix issue with clearing API credentials on save of forms in other pages
+
 = 2.0.3 =
 * Fix encoding and removed redundant method usage.
 
