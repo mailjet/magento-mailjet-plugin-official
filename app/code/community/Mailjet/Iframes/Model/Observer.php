@@ -133,8 +133,8 @@ class Mailjet_Iframes_Model_Observer
     {    
         $data = $observer->getEvent()->getData('data_object')->getData();
 
-        if(isset($data['field']) && $data['field'] == 'login') {
-            
+        // Here we add a new check ($data['path'] == Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_LOGIN) to be sure we process only submit on our form
+        if(isset($data['field']) && $data['field'] == 'login' && $data['path'] == Mailjet_Iframes_Helper_Config::XML_PATH_SMTP_LOGIN) {
             try {
 
                 $login = isset($data['fieldset_data']['login']) ? $data['fieldset_data']['login'] : '';

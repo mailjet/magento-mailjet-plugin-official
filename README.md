@@ -56,7 +56,7 @@ Your customers will benefit by receiving personalized and pertinent emails deliv
 **Important!** 
 * Make sure to apply the settings for each "Configuration scope"!
 * The email address used by the Mailjet Plugin for sending emails is the "Magento General Contact" (Can be found in Magento Admin > General > Store Email Addresses > General contact). This address must also be validated in your [Mailjet account](https://app.mailjet.com/account/sender).
-* If you are not yet a Mailjet user, please click [Register](https://app.mailjet.com/signup?p=magento-3.0) to create a new account.
+* If you are not yet a Mailjet user, please click [Register](https://app.mailjet.com/signup?aff=magento-3.0) to create a new account.
 
 ## Screenshots 
 * Plugin archive upload -  https://github.com/mailjet/magento-mailjet-plugin-official/blob/development/Magento_Downloader.png
@@ -66,6 +66,10 @@ Your customers will benefit by receiving personalized and pertinent emails deliv
 
 
 ## Changelog
+
+= 2.0.5 =
+* Improve email events processing - to handle both type 1 and type 2 of event API messages
+* Fix issue with clearing API credentials on save of forms in other pages
 
 = 2.0.3 =
 * Fix encoding and removed redundant method usage.

@@ -103,47 +103,58 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
                 /* => do action */
                 return;
             }
-            
-            $params = json_decode($postInput, 1);
+
+            $allEventsParams = json_decode($postInput, 1);
+            /*
+            * If we get Version 1 event it is a single array.
+            * Then we need to convert it to multi-array
+            * to reuse the same functionallity used for Version 2 (multi-array of events)
+            */
+            if (array_key_exists('event', $allEventsParams)) {
+                $allEventsParams = array($allEventsParams);
+            }
 
             //Mage::getModel('core/log_adapter', 'iframes_setup.log')->log('$params'."\r\n".print_r($params, 1));
 
-            switch ($params['event']) {
-                case 'open':
-                    /* => do action */
-                    /* If an error occurs, tell Mailjet to retry later: header('HTTP/1.1 400 Error'); */
-                    /* If it works, tell Mailjet it's OK */
-                    header('HTTP/1.1 200 Ok');
-                    break;
-                case 'click':
-                    /* => do action */
-                    break;
-                case 'bounce':
-                    /* => do action */
-                    break;
-                case 'spam':
-                    /* => do action */
-                    break;
-                case 'blocked':
-                    /* => do action */
-                    break;
-                case 'unsub':
-                    /* => do action */
-                    if(isset($params['email']) && !empty($params['email'])) {
-                        if(!isset($syncManager)) {
-                            $syncManager = new Mailjet_Iframes_Helper_SyncManager();
+            foreach ($allEventsParams as $eventParams) {
+                $eventType = $eventParams['event'];
+                switch ($eventType) {
+                    case 'open':
+                        /* => do action */
+                        /* If an error occurs, tell Mailjet to retry later: header('HTTP/1.1 400 Error'); */
+                        /* If it works, tell Mailjet it's OK */
+                        header('HTTP/1.1 200 Ok');
+                        break;
+                    case 'click':
+                        /* => do action */
+                        break;
+                    case 'bounce':
+                        /* => do action */
+                        break;
+                    case 'spam':
+                        /* => do action */
+                        break;
+                    case 'blocked':
+                        /* => do action */
+                        break;
+                    case 'unsub':
+                        /* => do action */
+                        if (isset($eventParams['email']) && !empty($eventParams['email'])) {
+                            if (!isset($syncManager)) {
+                                $syncManager = new Mailjet_Iframes_Helper_SyncManager();
+                            }
+                            $syncManager->usubscribeByEmail($eventParams['email']);
                         }
-                        $syncManager->usubscribeByEmail($params['email']);
-                    }
-                    break;
-                case 'typofix':
-                    /* => do action */
-                    break;
-                /* # No handler */
-                default:
-                    header('HTTP/1.1 423 No handler');
-                    /* => do action */
-                    break;
+                        break;
+                    case 'typofix':
+                        /* => do action */
+                        break;
+                    /* # No handler */
+                    default:
+                        header('HTTP/1.1 423 No handler');
+                        /* => do action */
+                        break;
+                }
             }
         } catch (Exception $e) {
 			//throw new Exception(Mage::helper('adminhtml')->__('Wrong event type'));
