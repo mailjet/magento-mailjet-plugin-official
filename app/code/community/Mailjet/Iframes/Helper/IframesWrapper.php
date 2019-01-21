@@ -427,21 +427,27 @@ HTML;
      */
     private function getToken()
     {
-        if (!isset($_SESSION[self::SESSION_NAME])) {
+        Mage::getSingleton('core/session')->getData(self::SESSION_NAME);
+        Mage::getSingleton('core/session')->setData(self::SESSION_SET, $messageValue);
+        Mage::getSingleton('core/session')->getData(self::SESSION_SET);
 
-            $_SESSION[self::SESSION_NAME]       = $this->generateToken();
-            $_SESSION[self::SESSION_SET]        = time();
+        $sessionToken = Mage::getSingleton('core/session')->getData(self::SESSION_NAME);
+        $sessionTime = Mage::getSingleton('core/session')->getData(self::SESSION_SET);
 
+        if (!isset($sessionToken) && !empty($sessionToken)) {
+            Mage::getSingleton('core/session')->setData(self::SESSION_NAME, $this->generateToken());
+            Mage::getSingleton('core/session')->setData(self::SESSION_SET, time());
         } else {
 
-            if (time() - $_SESSION[self::SESSION_SET] >= $this->sessionExpiration) {
-                $_SESSION[self::SESSION_NAME]       = $this->generateToken();
-                $_SESSION[self::SESSION_SET]        = time();
+            if (time() - $sessionTime >= $this->sessionExpiration) {
+                Mage::getSingleton('core/session')->setData(self::SESSION_NAME, $this->generateToken());
+                Mage::getSingleton('core/session')->setData(self::SESSION_SET, time());
             }
 
         }
+        $sessionToken = Mage::getSingleton('core/session')->getData(self::SESSION_NAME);
 
-        return $_SESSION[self::SESSION_NAME];
+        return $sessionToken;
     }
 
     /**

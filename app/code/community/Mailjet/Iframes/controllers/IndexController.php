@@ -20,7 +20,18 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
      * @var string
      */
     protected $_secretKey;
-    
+
+    /**
+     * Required by latest Magento 1.x.x versions
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return true;
+    }
+
+
     public function preDispatch() 
     {
         /*
@@ -91,8 +102,8 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
             if (!array_key_exists($username, $authorizedAccess) || $authorizedAccess[$username] != $password) {
                 header('WWW-Authenticate: Basic realm="My Realm"');
                 header('HTTP/1.0 401 Unauthorized');
-                echo 'Unauthorized access !';
-                exit;
+                $this->getResponse()->setBody('Unauthorized access !');
+                return;
             } 
             
             $postInput = trim(file_get_contents('php://input'));
@@ -159,7 +170,6 @@ class Mailjet_Iframes_IndexController extends Mage_Adminhtml_Controller_Action
         } catch (Exception $e) {
 			//throw new Exception(Mage::helper('adminhtml')->__('Wrong event type'));
 		}
-
     }
     
     /**
