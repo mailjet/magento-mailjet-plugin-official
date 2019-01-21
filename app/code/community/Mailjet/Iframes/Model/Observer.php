@@ -318,5 +318,3 @@ class Mailjet_Iframes_Model_Observer
     }
     
 }
-
-?>

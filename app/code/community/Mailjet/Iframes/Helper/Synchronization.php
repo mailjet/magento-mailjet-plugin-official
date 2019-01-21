@@ -421,4 +421,3 @@ class Mailjet_Iframes_Helper_Synchronization extends Mailjet_Iframes_Helper_Sync
     
     
 }
-?>

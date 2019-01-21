@@ -984,8 +984,9 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
         $this->_debugErrorHtml .= '<tr><th>Call url</th><td>'.$this->_debugCallUrl.'</td></tr>';
         $this->_debugErrorHtml .= '</table>';
         $this->_debugErrorHtml .= '</div>';
-        if ($this->_debugEcho)
-            echo $this->_debugErrorHtml;
+        if ($this->_debugEcho) {
+            var_dump($this->_debugErrorHtml);
+        }
     }
  
     
