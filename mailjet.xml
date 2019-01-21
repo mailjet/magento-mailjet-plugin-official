@@ -1,5 +1,5 @@
 <_>
-   <form_key>xV8859mDy5ee3Jf5</form_key>
+   <form_key>YPvifqo68ee0fus8</form_key>
    <name>mailjet</name>
    <channel>community</channel>
    <version_ids>
@@ -40,7 +40,7 @@
             <max/>
          </max>
          <files>
-            <files>                                 </files>
+            <files>                                  </files>
          </files>
       </package>
       <extension>
@@ -87,8 +87,4 @@
          <ignore/>
       </ignore>
    </contents>
-   <page>1</page>
-   <limit>200</limit>
-   <folder/>
-   <package/>
 </_>

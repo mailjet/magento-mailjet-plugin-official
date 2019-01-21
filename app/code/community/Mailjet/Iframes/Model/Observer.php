@@ -29,9 +29,10 @@ class Mailjet_Iframes_Model_Observer
             }
         }
 
-        if (isset(self::$fields['test']) && 4 == count(self::$fields))
+
+        if (isset(self::$fields['test']) && !empty(self::$fields ['test_address']) && 4 == count(self::$fields))
         {
-            $configs = array(array('ssl://', 465),
+             $configs = array(array('ssl://', 465),
                               array('tls://', 587),
                               array('', 587),
                               array('', 588),
@@ -77,7 +78,6 @@ class Mailjet_Iframes_Model_Observer
 
                 $to = self::$fields ['test_address'];
                 $from = Mage::getStoreConfig('trans_email/ident_general/email');
-
                 $Mail = Mage::getModel('iframes/mail');
 
                 $Mail->setBody(Mage::helper('iframes')->__('Your Mailjet configuration is ok!'));
