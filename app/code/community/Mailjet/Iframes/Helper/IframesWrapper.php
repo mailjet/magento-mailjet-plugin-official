@@ -140,11 +140,13 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
      *
      * @param string $apitKey
      * @param string $secretKey
+     * @param array $tokenAccess
      */
-    public function __construct($apitKey, $secretKey)
+    public function __construct($apitKey, $secretKey, $tokenAccess = array('campaigns', 'contacts', 'stats', 'reports', 'property', 'contact_filter'))
     {
         $this->startSession();
         $this->mailjetApi = new Mailjet_Iframes_Helper_ApiWrapper($apitKey, $secretKey);
+        $this->setTokenAccess($tokenAccess);
     }
 
     /**
