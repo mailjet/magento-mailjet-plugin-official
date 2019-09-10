@@ -71,7 +71,6 @@ class Mailjet_Iframes_Helper_IframesWrapper extends Mage_Core_Helper_Abstract
         'contacts',
         'stats',
         'reports',
-        'preferences',
         'property',
         'contact_filter'
     );
@@ -457,6 +456,7 @@ HTML;
      */
     private function generateToken()
     {
+        $this->setTokenAccess($this->tokenAccessAvailable);
         $params = array(
             'method'        => 'JSON',
             'AllowedAccess' => $this->tokenAccess,
