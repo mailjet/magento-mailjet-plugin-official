@@ -564,16 +564,16 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
 
 			if (file_exists($this->_cache_path . $file)) {
 
-				$data = unserialize(file_get_contents($this->_cache_path . $file));
+				$data = json_decode(file_get_contents($this->_cache_path . $file));
 
 				if ($data['timestamp'] > time() - $cache) {
 
-					return ($data['result']);
+					return $data['result'];
 				}
 			}
 		}
 
-		return (NULL);
+		return NULL;
 	}
 	
 	/**
@@ -607,7 +607,7 @@ class Mailjet_Iframes_Helper_ApiWrapper extends Mage_Core_Helper_Abstract
 			$file = $object . '.' .hash('md5', $this->_apiKey . http_build_query($params, '', '')) . '.' . $this->_output;
 			$data = array('timestamp' => time(), 'result' => $result);
 
-			file_put_contents($this->_cache_path . $file, serialize($data));
+			file_put_contents($this->_cache_path . $file, json_encode($data));
 		}
 	}
 	
